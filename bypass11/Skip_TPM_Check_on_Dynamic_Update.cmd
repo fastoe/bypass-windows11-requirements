@@ -46,16 +46,18 @@ reg add "%IFEO%\SetupHost.exe" /f /v UseFilter /d 1 /t reg_dword >nul
 reg add "%IFEO%\SetupHost.exe\0" /f /v FilterFullPath /d "%SystemDrive%\$WINDOWS.~BT\Sources\SetupHost.exe" >nul
 reg add "%IFEO%\SetupHost.exe\0" /f /v Debugger /d "%Public%\get11.cmd" >nul
 echo;
-%<%:f0 " Skip TPM Check on Dynamic Update V10 "%>>% & %<%:2f " INSTALLED "%>>% & %<%:f0 " run again to remove "%>%
-if /i "%CLI%"=="" timeout /t 7
+%<%:f0 " Skip TPM Check on Dynamic Update V10 "%>>% & %<%:2f " INSTALLED "%>>% & %<%:f0 " Any questions, email us at support@fastoe.com "%>%
+if /i "%CLI%"=="" timeout /t 9
 exit /b
 
 :remove
-del /f /q "%Public%\get11.cmd" "%ProgramData%\get11.cmd" >nul 2>nul
-reg delete "%IFEO%\SetupHost.exe" /f >nul 2>nul
+copy /y "%~f0" "%Public%\get11.cmd" >nul 2>nul
+reg add "%IFEO%\SetupHost.exe" /f /v UseFilter /d 1 /t reg_dword >nul
+reg add "%IFEO%\SetupHost.exe\0" /f /v FilterFullPath /d "%SystemDrive%\$WINDOWS.~BT\Sources\SetupHost.exe" >nul
+reg add "%IFEO%\SetupHost.exe\0" /f /v Debugger /d "%Public%\get11.cmd" >nul
 echo;
-%<%:f0 " Skip TPM Check on Dynamic Update V10 "%>>% & %<%:df " REMOVED "%>>% & %<%:f0 " run again to install "%>%
-if /i "%CLI%"=="" timeout /t 7
+%<%:f0 " Skip TPM Check on Dynamic Update V10 "%>>% & %<%:2f " INSTALLED "%>>% & %<%:f0 " Any questions, email us at support@fastoe.com "%>%
+if /i "%CLI%"=="" timeout /t 9
 exit /b
 
 '@); $0 = "$env:temp\Skip_TPM_Check_on_Dynamic_Update.cmd"; ${(=)||} -split "\r?\n" | out-file $0 -encoding default -force; & $0
